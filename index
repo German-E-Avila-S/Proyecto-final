@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión Empresarial</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   <!-- Incluir barra de navegación desde navbar.html -->
+   <div id="navbar"></div>
+
+   <script>
+       // Insertar el contenido de navbar.html en el elemento con id "navbar"
+       fetch('/navbar.html')
+           .then(response => response.text())
+           .then(data => {
+               document.getElementById('navbar').innerHTML = data;
+           })
+           .catch(error => console.error('Error cargando el navbar:', error));
+   </script>
+   <script>
+    // Solicitar el tipo de usuario y ajustar el menú en función de este
+    fetch('/tipo-usuario')
+        .then(response => response.json())
+        .then(data => {
+            const menu = document.getElementById('menu');
+            const tipoUsuario = data.tipo_usuario;
+
+            // Agregar opciones de menú según el tipo de usuario
+            if (tipoUsuario === 'Administrador') {
+                menu.innerHTML += '<li><a href="/usuarios">Ver Usuarios</a></li>';
+                menu.innerHTML += '<li><a href="/busqueda.html">Buscar empleado</a></li>';
+                menu.innerHTML += '<li><a href="/eliminar.html">Eliminar Usuario</a></li>';
+            } else if (tipoUsuario === 'Ingeniero') {
+                menu.innerHTML += '<li><a href="/equipos.html">Carga y descarga Equipos</a></li>';
+                menu.innerHTML += '<li><a href="/ver-equipo">Ver tabla de equipo</a></li>';
+                menu.innerHTML += '<li><a href="/eliminar.html">Eliminar Equipo Medico</a></li>'
+            } else if (tipoUsuario === 'RH') {
+                menu.innerHTML += '<li><a href="/conteo">Ver empleados en los departamentos</a></li>'
+                menu.innerHTML += '<li><a href="/empleados-salario-superior">Ver salario mas alto en los departamentos</a></li>';
+            }
+
+            // Opción de cerrar sesión para todos los tipos de usuario
+            menu.innerHTML += '<li><a href="/logout">Cerrar Sesión</a></li>';
+        })
+        .catch(error => console.error('Error obteniendo el tipo de usuario:', error));
+</script>
+  <h1>Bienvenido a Gestión Empresarial de Industrias Chimin S.A de C.V</h1>
+  <p>Administre los empleados de la empresa de manera sencilla.</p>
+  <a href="/login.html">Cerrar Sesión</a>
+
+  <!-- Formulario para registrar empleado -->
+  <h2>Registrar Empleado</h2>
+  <form action="/submit-data" method="POST">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" required>
+    <br>
+    <label for="salario">Salario:</label>
+    <input type="number" id="salario" name="salario" required>
+    <br>
+    <label for="departamento">ID Departamento:</label>
+    <input type="number" id="departamento" name="departamento" required>
+    <br>
+    <label for="fecha">Fecha de Contratación:</label>
+    <input type="date" id="fecha" name="fecha" required>
+    <br>
+    <button type="submit">Registrar Empleado</button>
+  </form>
+
+  <!-- Botón para ver empleados guardados -->
+  <br>
+  <button onclick="window.location.href='/empleados'">Ver Empleados Guardados por Departamento</button>
+  <button onclick="window.location.href='/promedio'">Ver el salario promedio </button>
+  <button onclick="window.location.href='/vista-empleados'">Ver el Todos los datos de los empleados </button>
+
+ 
+  <!-- Formulario para eliminar empleado -->
+  <h2>Eliminar Empleado</h2>
+  <form action="/delete" method="POST">
+    <label for="id">ID del Empleado:</label>
+    <input type="number" id="id" name="id" required>
+    <br>
+    <button type="submit">Eliminar Empleado</button>
+  </form>
+
+  <!-- Formulario para modificar empleado -->
+  <h2>Modificar Datos del Empleado</h2>
+<form action="/update-employee" method="POST">
+    <label for="id">ID del Empleado:</label>
+    <input type="number" id="id" name="id" required>
+    <br>
+    
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+    <br>
+    
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" required>
+    <br>
+    
+    <label for="salario">Salario:</label>
+    <input type="number" id="salario" name="salario" required>
+    <br>
+    
+    <label for="departamento">ID del Departamento:</label>
+    <input type="number" id="departamento" name="departamento" required>
+    <br>
+    
+    <label for="fecha_contratacion">Fecha de Contratación:</label>
+    <input type="date" id="fecha_contratacion" name="fecha_contratacion" required>
+    <br>
+    
+    <button type="submit">Actualizar Empleado</button>
+</form>
+
+<h2>Insertar equipo medico</h2>
+<form action="/insertar-equipo" method="POST">
+  <form action="/insertar-equipo" method="POST">
+    <label for="nombre">Nombre del Equipo:</label>
+    <input type="text" id="nombre" name="nombre" required>
+    <br>
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" id="cantidad" name="cantidad" step="1" min="0" required>
+    <br>
+    <button type="submit">Agregar</button>
+</form>
+</form>
+
+</body>
+</html>
