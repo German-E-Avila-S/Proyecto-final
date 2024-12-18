@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliminar Usuario</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Eliminar Usuario</h1>
+  <form action="/eliminar-usuario" method="POST">
+    <label for="id">ID del Usuario:</label>
+    <input type="text" id="id" name="id" required>
+    <button type="submit">Eliminar</button>
+  </form>
+</body>
+<body>
+    <h1>Eliminar Equipo medico<h1>
+        <form action="/eliminar-equipo" method="POST">
+            <label for="id">ID del Equipo Médico:</label>
+            <input type="text" id="id" name="id" required>
+            <button type="submit">Eliminar</button>
+          </form>
+  </body>
+<button onclick="window.location.href='/'">Volver</button>
+</html>
